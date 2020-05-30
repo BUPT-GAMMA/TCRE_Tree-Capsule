@@ -1,102 +1,72 @@
-# OpenNRE
+Code for the under-reviewed EMNLP 2020 paper "Tree-Capsule: Tree-Structured Capsule Network for Improving Relation Extraction".  For convenience, we update and complete the code based on the https://github.com/thunlp/OpenNRE
 
-OpenNRE is an open-source and extensible toolkit that provides a unified framework to implement relation extraction models. This package is designed for the following groups:
 
-* **New to relation extraction**: We have hand-by-hand tutorials and detailed documents that can not only enable you to use relation extraction tools, but also help you better understand the research progress in this field.
-* **Developers**: Our easy-to-use interface and high-performance implementation can acclerate your deployment in the real-world applications. Besides, we provide several pretrained models which can be put into production without any training.
-* **Researchers**: With our modular design, various task settings and metric tools, you can easily carry out experiments on your own models with only minor modification. We have also provided several most-used benchmarks for different settings of relation extraction.
-* **Anyone who need to submit an NLP homework to impress their professors**: With state-of-the-art models, our package can definitely help you stand out among your classmates!
-
-This package is mainly contributed by [Tianyu Gao](https://github.com/gaotianyu1350), [Xu Han](https://github.com/THUCSTHanxu13), [Shulian Cao](https://github.com/ShulinCao), [Lumin Tang](https://github.com/Tsingularity), [Yankai Lin](https://github.com/Mrlyk423), [Zhiyuan Liu](http://nlp.csai.tsinghua.edu.cn/~lzy/)
-
-## What is Relation Extraction
-
-Relation extraction is a natural language processing (NLP) task aiming at extracting relations (e.g., *founder of*) between entities (e.g., **Bill Gates** and **Microsoft**). For example, from the sentence *Bill Gates founded Microsoft*, we can extract the relation triple (**Bill Gates**, *founder of*, **Microsoft**). 
-
-Relation extraction is a crucial technique in automatic knowledge graph construction. By using relation extraction, we can accumulatively extract new relation facts and expand the knowledge graph, which, as a way for machines to understand the human world, has many downstream applications like question answering, recommender system and search engine. 
-
-## How to Cite
-
-A good research work is always accompanied by a thorough and faithful reference. If you use or extend our work, please cite the following paper:
+Make sure the following files are present as per the directory structure before running the code,
 
 ```
-    @inproceedings{han2019opennre,
-      title={OpenNRE: An Open and Extensible Toolkit for Neural Relation Extraction},
-      author={Han, Xu and Gao, Tianyu and Yao, Yuan and Ye, Deming and Liu, Zhiyuan and Sun, Maosong },
-      booktitle={Proceedings of EMNLP},
-      year={2019}
-    }
+TreeCapsule
+├── benchmark
+│   ├── semeval
+│   │   ├── semeval_rel2id.json
+│   │   ├── semeval_test.txt
+│   │   ├── semeval_train.txt
+│   │   └── semeval_val.txt
+│   └── *.py
+├── opennre
+│   └── *
+├── pretrain
+│   ├── download_glove.sh
+│   ├── semeval_lstmCat.pth.tar
+│   └── tacred_lstmpa.pth.tar
+├── *.py
+├── README.md
+└── requirements.txt
 ```
 
-It's our honor to help you better explore relation extraction with our OpenNRE toolkit!
+For TACRED dataset, You need to first download dataset from [LDC](https://catalog.ldc.upenn.edu/LDC2018T24), which due to the license issue I cannot put in this repo. 
 
-## Papers and Document
 
-If you want to learn more about neural relation extraction, visit another project of ours ([NREPapers](https://github.com/thunlp/NREPapers)).
 
-You can refer to our [document](https://opennre-docs.readthedocs.io/en/latest/) for more details about this project.
+# Dependencies
 
-## Install 
-
-### Install as A Python Package
-
-We are now working on deploy OpenNRE as a Python package. Coming soon!
-
-### Using Git Repository
-
-Clone the repository from our github page (don't forget to star us!)
-
-```bash
-git clone https://github.com/thunlp/OpenNRE.git
-```
-
-If it is too slow, you can try
-```
-git clone https://github.com/thunlp/OpenNRE.git --depth 1
-```
-
-Then install all the requirements:
+Our code runs on the CentOS Linux release 7.7.1908 (Core) with GeForce RTX 2080 Ti (11GB) device, and the following packages installed: 
 
 ```
-pip install -r requirements.txt
+python 3.7
+
+boto3==1.10.2
+botocore==1.13.2
+certifi==2019.9.11
+chardet==3.0.4
+Click==7.0
+docutils==0.15.2
+idna==2.8
+jmespath==0.9.4
+joblib==0.14.0
+numpy==1.17.3
+python-dateutil==2.8.0
+regex==2019.8.19
+requests==2.22.0
+s3transfer==0.2.1
+sacremoses==0.0.35
+scikit-learn==0.21.3
+scipy==1.3.1
+sentencepiece==0.1.83
+six==1.12.0
+sklearn==0.0
+torch==1.3.1
+tqdm==4.36.1
+transformers==2.8.0
+urllib3==1.25.6
+nltk==3.2.5
 ```
 
-Then install the package with 
+
+
+# Run
+
+Train and test,
+
 ```
-python setup.py install 
+python main.py
 ```
-
-If you also want to modify the code, run this:
-```
-python setup.py develop
-```
-
-Note that we have excluded all data and pretrain files for fast deployment. You can manually download them by running scripts in the ``benchmark`` and ``pretrain`` folders. For example, if you want to download FewRel dataset, you can run
-
-```bash
-bash benchmark/download_fewrel.sh
-```
-
-## Easy Start
-
-Add `OpenNRE` directory to the `PYTHONPATH` environment variable, or open a python session under the `OpenNRE` folder. Then import our package and load pre-trained models.
-
-```python
->>> import opennre
->>> model = opennre.get_model('wiki80_cnn_softmax')
-```
-
-Note that it may take a few minutes to download checkpoint and data for the first time. Then use `infer` to do sentence-level relation extraction
-
-```python
->>> model.infer({'text': 'He was the son of Máel Dúin mac Máele Fithrich, and grandson of the high king Áed Uaridnach (died 612).', 'h': {'pos': (18, 46)}, 't': {'pos': (78, 91)}})
-('father', 0.5108704566955566)
-```
-
-You will get the relation result and its confidence score.
-
-For higher-level usage, you can refer to our [document](https://opennre-docs.readthedocs.io/en/latest/).
-
-## Google Group
-
-If you want to receive our update news or take part in discussions, please join our [Google Group](https://groups.google.com/forum/#!forum/opennre/join)

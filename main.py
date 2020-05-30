@@ -15,9 +15,9 @@ dataset = 'semeval'
 # dataset = 'tacred'
 
 if dataset == 'semeval':       # Represents the trained model of the first stage
-    pretrainLSTM = './pretrain/semeval_lstmCat_8074.pth.tar'
+    pretrainLSTM = './pretrain/semeval_lstm.pth.tar'
 else:
-    pretrainLSTM = './pretrain/tacred_lstmpa.pth.tar'
+    pretrainLSTM = './pretrain/tacred_lstm.pth.tar'
 
 ckpt = 'ckpt/{}.pth.tar'.format(dataset)
 print(ckpt)
