@@ -16,8 +16,8 @@ TreeCapsule
 │   └── *
 ├── pretrain
 │   ├── download_glove.sh
-│   ├── semeval_lstmCat.pth.tar
-│   └── tacred_lstmpa.pth.tar
+│   ├── semeval_lstm.pth.tar
+│   └── tacred_lstm.pth.tar
 ├── *.py
 ├── README.md
 └── requirements.txt
