@@ -1,4 +1,4 @@
-Code for the under-reviewed EMNLP 2020 paper "Tree-Capsule: Tree-Structured Capsule Network for Improving Relation Extraction".  For convenience, we update and complete the code based on the https://github.com/thunlp/OpenNRE
+Code for the under-reviewed PAKDD 2021 paper "[Tree-Capsule: Tree-Structured Capsule Network for Improving Relation Extraction](https://link.springer.com/chapter/10.1007%2F978-3-030-75768-7_26#citeas)".  For convenience, we update and complete the code based on the https://github.com/thunlp/OpenNRE
 
 
 Make sure the following files are present as per the directory structure before running the code,
@@ -69,4 +69,25 @@ Train and test,
 
 ```
 python main.py
+```
+
+
+
+# Citation
+
+If you make advantage of our model in your research, please cite the following in your manuscript:
+
+```
+@inproceedings{yang2021tree_capsule,
+	address = {Cham},
+	title = {Tree-{Capsule}: {Tree}-{Structured} {Capsule} {Network} for {Improving} {Relation} {Extraction}},
+	isbn = {978-3-030-75768-7},
+	booktitle = {Advances in {Knowledge} {Discovery} and {Data} {Mining}},
+	publisher = {Springer International Publishing},
+	author = {Yang, Tianchi and Hu, Linmei and Zhang, Luhao and Shi, Chuan and Yang, Cheng and Duan, Nan and Zhou, Ming},
+	editor = {Karlapalem, Kamal and Cheng, Hong and Ramakrishnan, Naren and Agrawal, R. K. and Reddy, P. Krishna and Srivastava, Jaideep and Chakraborty, Tanmoy},
+	year = {2021},
+	pages = {325--337}
+}
+
 ```
